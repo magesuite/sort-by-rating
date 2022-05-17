@@ -12,7 +12,7 @@ class SortingTest extends \Magento\TestFramework\TestCase\AbstractController
 
     /**
      * @magentoDataFixture MageSuite_SortByRating::Test/Integration/_files/product_review_with_rating.php
-     * @magentoDbIsolation disabled
+     * @magentoDbIsolation enabled
      * @magentoAppArea frontend
      * @magentoConfigFixture default_store catalog/review/active 0
      * @magentoConfigFixture smile_elasticsuite_sorting_settings/general/min_count 4
