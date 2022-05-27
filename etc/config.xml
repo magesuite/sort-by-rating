@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <smile_elasticsuite_sorting_settings>
+            <general>
+                <min_count>20</min_count>
+            </general>
+        </smile_elasticsuite_sorting_settings>
+    </default>
+</config>
