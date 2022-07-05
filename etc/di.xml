@@ -12,4 +12,7 @@
     <type name="Smile\ElasticsuiteRating\Model\ResourceModel\Product\Indexer\Fulltext\Datasource\RatingData">
         <plugin name="add_filter_by_min_reviews_count" type="MageSuite\SortByRating\Plugin\Smile\ElasticsuiteRating\Model\ResourceModel\Product\Indexer\Fulltext\Datasource\RatingData\AddFilterByMinReviewsCount" />
     </type>
+    <type name="Magento\Review\Block\Product\ReviewRenderer">
+        <plugin name="flatten_rating_summary_for_review_renderer" type="MageSuite\SortByRating\Plugin\Review\Block\Product\ReviewRenderer\FlattenRatingSummary"/>
+    </type>
 </config>
