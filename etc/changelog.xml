@@ -16,6 +16,12 @@
                     <overview>Changed the default value for the minimum reviews count threshold</overview>
                 </entry>
             </tag>
+            <tag version="1.0.4" date="2022-07-06">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Added translations for the product rating and product reviews count descending sorting options</overview>
+                </entry>
+            </tag>
         </changelog>
     </module>
 </config>
