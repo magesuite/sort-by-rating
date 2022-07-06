@@ -3,7 +3,7 @@
     <default>
         <smile_elasticsuite_sorting_settings>
             <general>
-                <min_count>20</min_count>
+                <min_count>0</min_count>
             </general>
         </smile_elasticsuite_sorting_settings>
     </default>
