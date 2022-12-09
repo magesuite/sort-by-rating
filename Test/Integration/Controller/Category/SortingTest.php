@@ -28,6 +28,11 @@ class SortingTest extends \Magento\TestFramework\TestCase\AbstractController
         string $direction,
         array $expectation
     ): void {
+        $processor = $this->objectManager->create(
+            \Magento\Catalog\Model\Indexer\Product\Price\Processor::class
+        );
+        $processor->getIndexer()->reindexList([1,2,3]);
+
         $this->objectManager->create(\Magento\CatalogSearch\Model\Indexer\Fulltext\Processor::class)
             ->reindexAll();
 
