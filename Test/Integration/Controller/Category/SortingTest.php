@@ -1,13 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\SortByRating\Test\Integration\Controller\Category;
 
 class SortingTest extends \Magento\TestFramework\TestCase\AbstractController
 {
+    protected ?\Magento\Catalog\Model\Indexer\Product\Price\Processor $priceProcessor;
+    protected ?\Magento\CatalogSearch\Model\Indexer\Fulltext\Processor $fulltextProcessor;
+    protected ?\Magento\Catalog\Block\Product\ListProductFactory $listProduct;
+
     public function setUp(): void
     {
         parent::setUp();
-        $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
+        $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
+        $this->priceProcessor = $objectManager->create(\Magento\Catalog\Model\Indexer\Product\Price\Processor::class);
+        $this->fulltextProcessor = $objectManager->create(\Magento\CatalogSearch\Model\Indexer\Fulltext\Processor::class);
+        $this->listProduct = $objectManager->create(\Magento\Catalog\Block\Product\ListProductFactory::class);
     }
 
     /**
@@ -16,11 +25,7 @@ class SortingTest extends \Magento\TestFramework\TestCase\AbstractController
      * @magentoAppArea frontend
      * @magentoConfigFixture smile_elasticsuite_sorting_settings/general/min_count 4
      * @dataProvider productListSortOrderDataProvider
-     * @param int $categoryId
-     * @param string $sortBy
-     * @param string $direction
-     * @param array $expectation
-     * @return void
+     * @phpcs:disable MageSuite.TooMany.MethodArguments.Found
      */
     public function testCategoryViewSortByCountAndRatingSummary(
         int $categoryId,
@@ -28,13 +33,9 @@ class SortingTest extends \Magento\TestFramework\TestCase\AbstractController
         string $direction,
         array $expectation
     ): void {
-        $processor = $this->objectManager->create(
-            \Magento\Catalog\Model\Indexer\Product\Price\Processor::class
-        );
-        $processor->getIndexer()->reindexList([1,2,3]);
+        $this->priceProcessor->getIndexer()->reindexList([1,2,3]);
 
-        $this->objectManager->create(\Magento\CatalogSearch\Model\Indexer\Fulltext\Processor::class)
-            ->reindexAll();
+        $this->fulltextProcessor->reindexAll();
 
         $this->getRequest()
             ->setMethod(\Magento\Framework\App\Request\Http::METHOD_GET)
@@ -45,11 +46,9 @@ class SortingTest extends \Magento\TestFramework\TestCase\AbstractController
 
         $this->dispatch("catalog/category/view/id/{$categoryId}");
 
-        $items = $this->objectManager->get(\Magento\Catalog\Block\Product\ListProduct::class)
-                ->getLoadedProductCollection()
-                ->getItems();
+        $items = $this->listProduct->create()->getLoadedProductCollection()->getItems();
 
-        $sortedListSKU = array_map(function ($item){
+        $sortedListSKU = array_map(function ($item) {
             return $item->getSku();
         }, $items);
 
