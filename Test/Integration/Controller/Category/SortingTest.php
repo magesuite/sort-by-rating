@@ -33,9 +33,8 @@ class SortingTest extends \Magento\TestFramework\TestCase\AbstractController
         string $direction,
         array $expectation
     ): void {
-        $this->priceProcessor->getIndexer()->reindexList([1,2,3]);
-
-        $this->fulltextProcessor->reindexAll();
+        $this->priceProcessor->reindexList([1,2,3]);
+        $this->fulltextProcessor->reindexList([1,2,3]);
 
         $this->getRequest()
             ->setMethod(\Magento\Framework\App\Request\Http::METHOD_GET)
@@ -60,7 +59,7 @@ class SortingTest extends \Magento\TestFramework\TestCase\AbstractController
     /**
      * @return array
      */
-    public function productListSortOrderDataProvider(): array
+    public static function productListSortOrderDataProvider(): array
     {
         return [
             'default_order_reviews_count_asc' => [
